@@ -7,14 +7,14 @@ sessionsRouter.post('/', async (request, response) => {
   try {
     const { email, password } = request.body;
     const authenticateUser = new AuthenticateUserService();
-    const { user } = await authenticateUser.excute({
+    const { user , token } = await authenticateUser.excute({
       email,
       password,
     });
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     delete user.password;
-    return response.status(200).json({ user });
+    return response.status(200).json({ user, token });
   } catch (error) {
     return response.status(400).json({ error: error.message });
   }
