@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { getSalt } from 'bcryptjs';
 import CreateUserService from '../services/CreateUserService';
 
 const usersRouter = Router();
@@ -11,6 +12,9 @@ usersRouter.post('/', async (request, response) => {
 
     const user = await createUser.execute({ name, email, password });
 
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     delete user.password;
 
     return response.status(200).json({ user });
