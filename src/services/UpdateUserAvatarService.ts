@@ -10,7 +10,7 @@ interface Request {
 }
 
 class UpdateUserAvatarService {
-  public async execute({ user_id, avatarFileName }: Request): Promise<void> {
+  public async execute({ user_id, avatarFileName }: Request): Promise<User> {
     const userRepository = getRepository(User);
     const user = await userRepository.findOne(user_id);
     if (!user) {
@@ -28,6 +28,8 @@ class UpdateUserAvatarService {
     user.avatar = avatarFileName;
 
     await userRepository.save(user);
+
+    return user;
   }
 }
 export default UpdateUserAvatarService;
